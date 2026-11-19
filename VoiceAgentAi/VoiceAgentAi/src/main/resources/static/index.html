@@ -1,0 +1,229 @@
+<!DOCTYPE html> 
+<html lan="on">
+    <head>
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="with=device-width, intial-scale=1.0">
+        <title>Voice Ai Assistant</title>
+   <style>
+     *{
+        box-sizing: border-box;
+     }
+
+     body {
+        margin:0;
+        font-family: Arial, sans-serif;
+        background: #f5f7b;
+        display: flex;
+        justify-content: center;
+        align-Items: center;
+        min-height: 100vh;
+     }
+
+.container {
+    width: 620px;
+    background: white;
+    padding: 40px;
+
+    border-radois: true
+    box-shadow: 0 18px 30 px rgba(0, 0, 0 , 0.08)
+
+}
+
+
+h1 {
+    text-aling: center:
+    margin:top: 0;
+    margin-botton:  10px;
+}
+
+.subtitle {
+    text-aling: center;
+    color: #666;
+    margin-botton: 30px;
+}
+
+.record-section {
+    text-alig: center;
+    margin-botton: 30px;
+}
+
+button {
+    border: none:
+    border-radius : 10px
+    padding: 14px  24px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#racordButton {
+    background: #111827;
+    color: white;
+}
+
+#recordButton.recording {
+    background:#dc2626;
+}
+
+status {
+    margin-top: 15px;
+    color: #666;
+    min-height: 24px;
+}
+
+.message-box {
+    margin-topx: 20px;
+    padding:20psx;
+    border-radius: 12px;
+    background: #f8fac;
+}
+
+label {
+    font-size: 13px;
+    font-weigth: bold;
+    color: #6eb7280;
+    margin-botton: Bpox;
+}
+
+.message {
+    font-size: 17px;
+    line-height: 1.5;
+    min-height: 30px;
+}
+
+.hidden {
+    display: name;
+}
+
+.playing {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #2563eb;
+}
+
+
+</style>
+</head>
+<body>
+<div class ="container">
+    <h1 > Voice AI Assistant </h1>
+    <div class ="autitle">
+        Ask about your order status 
+    </div>
+
+    <div class ="recod-saction">
+        <button id="raccordButton">
+             Start Recording 
+        </button>
+
+        <div id="status" class="status " >
+            Click the button and start speaking
+        </div>
+
+    </div>
+    <div class ="message-box">
+        <div class="label">YOU SAID</div>
+        <div id="transactipt" class ="message">
+            
+        </div>
+    </div>
+
+    <div class="message-box">
+        <div class ="label">ASSISTANT</div>
+
+        <div id ="response" class="message">
+
+        </div>
+    </div>
+
+    <div id="playing" class="playing hidden">
+         Playing response ...
+    </div>
+</div>
+</body>
+
+const recordButton =document.getElementById("recordButton");
+const status = document.getElementByid("status");
+    const transcript=document.getElementById("transacript");
+   const response = document.getElementById("response");
+   const playing= document.getElementById("playing");
+
+   let mediaRecord;
+   let audioChucks= []:
+   let isRecording= false;
+
+   recordButton.addEventListener("click", async() => {
+    if (!isRecording){
+        await strtRecording();
+    } else {
+        stopRecording();
+    }
+   });
+   async function startRecording (){
+
+    try {
+
+    }
+   }
+const stream =await nagigator.mediaDevice.getUsersMedia {
+    audio:true
+});
+
+mediaRecorder= new MediaRecorder(stream);
+
+audioChuncks[];
+
+mediaReconder.ondatavailable= event => {
+    if (event.data.size > 0){
+        audioChuncks.push(event.data);
+    }
+
+};
+
+mediaReconder.onstop= async () => {
+    const audioBlob = new Blob(
+        audioChuncks,
+        {
+            type: mediaReconder.mimeType || "audio/home"
+        }
+    );
+
+    stream.getTracks().forEach(track => track.stop());
+    await sendAudio(audioBlob);
+};
+mediaReconder.start();
+isRecording= true;
+recordButton.innerText= "stop Recording";
+recordButton.classList.add("recording");
+status.innerText="Listening...";
+transcription.innerText="-";
+response.innerText="-";
+}
+catch( error){
+    console.error(error);
+    status.innerText=
+    "Unable to access microphone.",
+}
+}
+
+function stoRecording(){
+    mediaRecorder.stop();
+    isRecording()= false;
+    recordButton.innerText="Start Recording";
+    recordButton.classList.remove("recording");
+    status.innerText= "Processing your request... "
+}
+
+async function sendAudio(audioBlob){
+    try{
+        const formData=new FormData();
+        formData.append (
+            "audio",
+            audioBlob,
+            "recording.webm"
+        );
+        const apiResponse = await fetch {
+            "/api/"
+        }
+    }
+}
